@@ -6,6 +6,7 @@
 	verifier si le contact existe deja
 	quand on rentre le rue, si on met un espace ça plante
 	en regle général, quand on ecrit une btise ca bug, il faut faire des tests
+	dans edit, quand on met une valeur qui n'est pas acceptée par le menu ca revient au menu principal
 */
 
 
