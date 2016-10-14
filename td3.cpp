@@ -1,17 +1,20 @@
 // Separer les éléments
+// vérifier la sécurité
+// problème avec les espaces ?
 
 
 /* 
 
 	verifier si le contact existe deja
-	quand on rentre le rue, si on met un espace ça plante
 	en regle général, quand on ecrit une btise ca bug, il faut faire des tests
 	dans edit, quand on met une valeur qui n'est pas acceptée par le menu ca revient au menu principal
 */
 
+	
 
 #include <iostream>
 #include <vector>
+#include <limits>
 
 using namespace std;
 
@@ -26,33 +29,113 @@ class Adress
 
 	public:
 		Adress(){};
-		void setNumber (unsigned int n) {
-			nb = n;
+		void setNumber (unsigned int n) {nb = n;}
+		void setNumber () {
+			unsigned int _nb = 0;
+			do{
+				cout << "Number : " << endl;
+				cin >> _nb;
+				if(cin.fail() || _nb == 0){
+					cout << "The number was incorrect ! " << endl;
+					cin.clear();
+					cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				}else{
+					nb = _nb;
+					cin.clear();
+					cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				}
+			}while(_nb == 0);
 		}
 
-		void setStreet (string s) {
-			street = s;
+		void setStreet (string s) {street = s;}
+		void setStreet () {
+			string _street = "";
+			do{
+				cout << "Street : " << endl;
+				cin >> _street;
+				if(cin.fail() || _street == ""){
+					cout << "The street was incorrect ! " << _street << endl;
+					_street == "";
+					cin.clear();
+					cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				}else{
+					street = _street;
+					cin.clear();
+					cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				}
+			}while(_street == "");
 		}
 		
-		void setZipCode (unsigned int z) {
-			zipCode = z;
+		void setZipCode (unsigned int z) {zipCode = z;}
+		void setZipCode () {
+			unsigned int _code;
+			do{
+				cout << "ZipCode (5 caracteres) : " << endl;
+				cin >> _code;
+				if(cin.fail() || _code < 10000 || _code > 99999){
+					cout << "The zipCode was incorrect ! " << endl;
+					cin.clear();
+					cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				}else{
+					zipCode = _code;
+					cin.clear();
+					cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				}
+			}while(_code < 10000 || _code > 99999);
+		}
+		
+		void setCity (string c) {city = c;}
+		void setCity () {
+			string _city = "";
+			do{
+				cout << "City : " << endl;
+				cin >> _city;
+				if(cin.fail() || _city == ""){
+					cout << "The city was incorrect ! " << _city << endl;
+					_city == "";
+					cin.clear();
+					cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				}else{
+					city = _city;
+					cin.clear();
+					cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				}
+			}while(_city == "");
+		}
+		
+		void setCountry (string c) {country = c;}
+		void setCountry () {
+			string _country = "";
+			do{
+				cout << "Country : " << endl;
+				cin >> _country;
+				if(cin.fail() || _country == ""){
+					cout << "The country was incorrect ! " << _country << endl;
+					_country == "";
+					cin.clear();
+					cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				}else{
+					country = _country;
+					cin.clear();
+					cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				}
+			}while(_country == "");
+		}
 
-		}
-		
-		void setCity (string c) {
-			city = c;
-		}
-		
-		void setCountry (string c) {
-			country = c;
-		}
-
-		void setAll(unsigned int n, string s, unsigned int z, string ci, string co){
+		void setAdress(unsigned int n, string s, unsigned int z, string ci, string co){
 			setNumber(n);
 			setStreet(s);
 			setZipCode(z);
 			setCity(ci);
 			setCountry(co);
+		}
+		void setAdress(){ 	
+			cout << "Vous allez rentrer l'adresse" << endl;
+			setNumber();
+			setStreet();
+			setZipCode();
+			setCity();
+			setCountry();
 		}
 
 
@@ -76,32 +159,7 @@ class Adress
 			return country;
 		}
 
-		void addAdress(){ 
-			string _street;
-			string _city;
-			string _country;
-			unsigned int _nb, _zipCode;
-
-			cout << "Number : " << endl;
-			cin >> _nb;
-			setNumber(_nb);
-
-			cout << "Street : " << endl;
-			cin >> _street;
-			setStreet(_street);
-
-			cout << "Zip Code : " << endl;
-			cin >> _zipCode;
-			setZipCode(_zipCode);
-
-			cout << "City : " << endl;
-			cin >> _city;
-			setCity(_city);
-
-			cout << "Country : " << endl;
-			cin >> _country;
-			setCountry(_country);
-		}
+		
 };
 
 
@@ -110,17 +168,12 @@ class Person
 {
 private:
 	string name;
-	// unsigned int age;
-	// unsigned int height;
 	unsigned char phoneNb[10];
 
 	Adress adress;
 
 public:
 	Person(){}
-	// void printAge() {
-	// 	cout << getAge() << " years old " << endl;
-	// }
 	void printPhoneNb() {
 		unsigned char* val = getPhoneNb();
 		
@@ -128,7 +181,6 @@ public:
 			cout << val[i];
 			if (i%2 == 1) cout << " ";
 		}
-		// cout << getPhoneNb() << endl;
 		cout << endl;
 	}
 	
@@ -152,26 +204,46 @@ public:
 	string getName() {
 		return name;
 	}
-
-	// unsigned int getAge() {
-	// 	return age;
-	// }
-
 	unsigned char* getPhoneNb() {
 		return phoneNb;
 	}
 
-	void setName (string n) {
-		name = n;
+	void setName (string n) {name = n;}
+	void setName () {
+		string _name = "";
+		do{
+			cout << "Name : " << endl;
+			cin >> _name;
+			if(cin.fail() || _name == ""){
+				cout << "The name was incorrect ! " << _name << endl;
+				cin.clear();
+				cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			}else{
+				name = _name;
+				cin.clear();
+				cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			}
+		}while(_name == "");
 	}
-	// void setAge (unsigned int a) {
-	// 	age = a;
-	// }
+
 	void setPhoneNb (unsigned char nb[]) {
-		// unsigned char val;
 		for (int i = 0; i < 10; i++) {
 				phoneNb[i] = nb[i];
 		}
+	}
+	void setPhoneNb () {
+		cout << "Phone number : " << endl;
+		unsigned char val;
+		int i = 0;
+		while (i < 10) {
+			cin >> val;
+			if (val <= 57 && val >= 48) {
+				phoneNb[i] = val;
+				i++;
+			}
+		}
+		cin.clear();
+		cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	}
 
 	void setAdress(Adress a){
@@ -179,39 +251,14 @@ public:
 	}
 	void setAll(string n, unsigned char nb[], Adress ad){
 		setName(n);
-		// setAge(a);
 		setPhoneNb(nb);
 		setAdress(ad);
 	}
 
 	void addInfos(){
-		string _name;
-		unsigned char _phoneNb[10];
-		Adress _adress;
-
-		cout << "Name : " << endl;
-		cin >> _name;
-		setName(_name);
-
-		// cout << "Age : " << endl;
-		// cin >> _age;
-		// setAge(_age);
-
-		cout << "Phone number : " << endl;
-		unsigned char val;
-		int i = 0;
-		while (i < 10) {
-			scanf("%c", &val);
-			if (val <= 57 && val >= 48) {
-				_phoneNb[i] = val;
-				i++;
-			}
-		}
-
-		setPhoneNb(_phoneNb);
-
-		cout << "Vous allez rentrer l'adresse" << endl;	
-		adress.addAdress();
+		setName();
+		setPhoneNb();
+		adress.setAdress();
 	}
 };
 
@@ -230,7 +277,6 @@ class AdressBook{
 			p.printAll();	
 			cout << endl;
 		}
-
 		void addContact(){
 			Person p;
 			cout << "----------------------- NEW CONTACT ----------------------"  << endl << endl;
@@ -364,7 +410,7 @@ class AdressBook{
 							unsigned char _phoneNb[10];
 							int i = 0;
 							while (i < 10) {
-								scanf("%c", &val);
+								cin >> val;
 								if (val <= 57 && val >= 48) {
 									_phoneNb[i] = val;
 									i++;
@@ -377,7 +423,7 @@ class AdressBook{
 						else if (option == 3) {
 							cout << "New adress : " << endl;
 							Adress _adress;
-							_adress.addAdress();
+							_adress.setAdress();
 							p.setAdress(_adress);						
 	 					}
 
