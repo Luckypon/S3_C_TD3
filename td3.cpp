@@ -15,6 +15,7 @@
 #include <iostream>
 #include <vector>
 #include <limits>
+#include <fstream>
 
 using namespace std;
 
@@ -458,8 +459,26 @@ class AdressBook{
 			
 		}
 
-		void exportToFile(){ //a faire
-
+		void exportToFile(){ // à tester
+			cout << "----------------------- EXPORT CONTACTS ----------------------"  << endl << endl;
+			ofstream myfile;
+			myfile.open("AdressBook.txt");
+			if (myfile.is_open()){
+				vector<int>::size_type sz = adressBook.size();
+ 				for (unsigned i=0; i<sz; i++) {
+ 					myfile << "This is a line.\n";
+					myfile <<  adressBook[i].getName() << " " << adressBook[i].getPhoneNb();
+					myfile <<  adressBook[i].getNumber() << " " << adressBook[i].getStreet();
+					myfile <<  adressBook[i].getZipCode() << " " << adressBook[i].getCity();
+					myfile <<  adressBook[i].getCountry();
+					myfile << "\n Next Contact \n";
+ 				}
+				myfile.close();
+			}
+			else{
+				cout << "Unable to open file";
+			} 
+			return 0;
 		}
 
 		void print(){
