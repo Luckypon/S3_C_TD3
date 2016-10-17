@@ -8,6 +8,7 @@
 	verifier si le contact existe deja
 	en regle général, quand on ecrit une btise ca bug, il faut faire des tests
 	dans edit, quand on met une valeur qui n'est pas acceptée par le menu ca revient au menu principal
+
 */
 
 	
@@ -16,6 +17,7 @@
 #include <vector>
 #include <limits>
 #include <fstream>
+#include <string>
 
 using namespace std;
 
@@ -195,6 +197,13 @@ public:
 		<< adress.getCountry() << endl;
 	}
 
+	Adress getAdress() {
+		return adress;
+	}
+
+
+
+
 	void printAll(){
 		printName();
 		printPhoneNb();
@@ -273,11 +282,12 @@ class AdressBook{
 
 		void addContact(Person p){
 			adressBook.push_back(p);
-			cout << endl;
-			cout << "Vous venez de rentrer le contact :"  << endl;
-			p.printAll();	
-			cout << endl;
+			// cout << endl;
+			// cout << "Vous venez de rentrer le contact :"  << endl;
+			// p.printAll();	
+			// cout << endl;
 		}
+
 		void addContact(){
 			Person p;
 			cout << "----------------------- NEW CONTACT ----------------------"  << endl << endl;
@@ -465,21 +475,144 @@ class AdressBook{
 			myfile.open("AdressBook.txt");
 			if (myfile.is_open()){
 				vector<int>::size_type sz = adressBook.size();
+
+				myfile << "\t MY CONTACTS\n\n\n";
+
  				for (unsigned i=0; i<sz; i++) {
- 					myfile << "This is a line.\n";
-					myfile <<  adressBook[i].getName() << " " << adressBook[i].getPhoneNb();
-					myfile <<  adressBook[i].getNumber() << " " << adressBook[i].getStreet();
-					myfile <<  adressBook[i].getZipCode() << " " << adressBook[i].getCity();
-					myfile <<  adressBook[i].getCountry();
-					myfile << "\n Next Contact \n";
+ 					// myfile << "This is a line.\n";
+					myfile << "CONTACT " << i+1 << ".\nName : ";
+
+					myfile <<  adressBook[i].getName() << " \nPhone : " << adressBook[i].getPhoneNb();
+					myfile << "\nAdress : ";
+					// myfile <<  adressBook[i].printAdress();
+					myfile <<  adressBook[i].getAdress().getNumber() << " " << adressBook[i].getAdress().getStreet() << "\n\t";
+					myfile <<  adressBook[i].getAdress().getZipCode() << " " << adressBook[i].getAdress().getCity() << "\n\t";
+					myfile <<  adressBook[i].getAdress().getCountry();
+					// myfile << "\n Next Contact \n";
+					myfile << "\n\n";
+
  				}
 				myfile.close();
+				cout << "The contacts had bin export in the file \"AdressBook.txt\". "  << endl << endl;
+
 			}
 			else{
 				cout << "Unable to open file";
 			} 
-			return 0;
+			// return 0;
 		}
+
+
+		void getContactFromFile(){ // à tester
+			
+			// faire une boucle pour recuperer les plusieurs contacts
+			// on ne peut pas editer un contact qui a ete recuperer comme ça, on met une lettre de trop
+    		string line;
+			ifstream myfile ("AdressBook.txt");
+			if (myfile.is_open()){
+				int i = 0;
+				
+			    while ((getline (myfile,line)) && (line != "CONTACT 1.") )
+			    { 
+			    } // go to the first contact name line
+			    
+			    myfile.seekg (6, ios::cur); //go to name
+
+			    char car;
+			    const int TAILLE_TAB = 10;
+			    char tabChar[TAILLE_TAB];
+			    myfile.get(car);
+			    const int LINE_RETURN = 10;
+			    const int TWO_POINTS = 58;
+			    const int SPACE = 32;
+			    const int ZERO = 48;
+			    
+			    while ( myfile.get(car) && car != LINE_RETURN) {
+			    	tabChar[i] = car;
+			    	i++;
+			    }
+			    string _name (tabChar, i-3);
+ 				
+ 				// go to the phone number
+ 				i = 0;
+ 				while ( myfile.get(car) && car != TWO_POINTS) {
+			    }
+ 				myfile.get(car);
+ 				unsigned char phoneNumber[10];
+
+ 				while ( myfile.get(car) && car != LINE_RETURN) {
+			    	phoneNumber[i] = car;
+			    	i++;
+			    }
+
+			    // go to adress (number)
+ 				while ( myfile.get(car) && car != TWO_POINTS) {
+			    }
+ 				myfile.get(car);
+ 				unsigned int nb = 0;
+ 				while ( myfile.get(car) && car != SPACE) {
+			    	nb = nb*10 + (car - ZERO);
+			    }
+
+			    // get street
+			    for (i = 0; i < TAILLE_TAB; i++) 
+			    	tabChar[i] = 0;
+
+			    i = 0;
+ 				while ( myfile.get(car) && car != LINE_RETURN) {
+					tabChar[i] = car;
+			    	i++;
+			    }
+			    string _street(tabChar);
+
+
+ 				// go to zipCode 
+				myfile.get(car);	//pass TAB
+ 				unsigned int zip = 0;
+ 				while ( myfile.get(car) && car != SPACE) {
+			    	zip = zip*10 + (car - ZERO);
+			    }
+
+
+			    // get city
+			    for (i = 0; i < TAILLE_TAB; i++) 
+			    	tabChar[i] = 0;
+
+			    i = 0;
+ 				while ( myfile.get(car) && car != LINE_RETURN) {
+					tabChar[i] = car;
+			    	i++;
+			    }
+			    string _city(tabChar);
+
+
+			    // get country
+			    for (i = 0; i < TAILLE_TAB; i++) 
+			    	tabChar[i] = 0;
+
+			    i = 0;
+				myfile.get(car);	//pass TAB
+ 				while ( myfile.get(car) && car != LINE_RETURN) {
+					tabChar[i] = car;
+			    	i++;
+			    }
+			    string _country(tabChar);
+
+
+
+				Person p;
+				Adress a;
+			 	a.setAdress(nb, _street, zip, _city, _country);
+				p.setAll(_name, phoneNumber, a);
+				addContact(p);
+
+				myfile.close();
+				  // cout << "size is: " << (begin) << (end-begin) << " bytes.\n";
+			}
+			
+		}
+
+
 
 		void print(){
 			vector<int>::size_type sz = adressBook.size();
@@ -568,16 +701,16 @@ class Menu { // a faire en pratique
     
         cout << endl;
 
-    	cout << "----------------------MENU PRINCIPAL--------------------------" << endl;
+    	cout << "----------------------MAIN MENU --------------------------" << endl;
         cout << endl;
 	
-		cout << "\t 1) Afficher les contacts" 
-	<< endl << "\t 2) Chercher un contact " 
-	<< endl << "\t 3) Ajouter un contact"
-	<< endl << "\t 4) Supprimer un contact" 
-	<< endl << "\t 5) Editer un contact"
-	<< endl << "\t 6) Exporter"
-	<< endl << "\t 0) Quitter" << endl << endl;
+		cout << "\t 1) Show contacts" 
+	<< endl << "\t 2) Search a contact " 
+	<< endl << "\t 3) Add a new contact"
+	<< endl << "\t 4) Remove a contact" 
+	<< endl << "\t 5) Edit a contact"
+	<< endl << "\t 6) Export"
+	<< endl << "\t 0) Quit" << endl << endl;
 
 
 
@@ -632,7 +765,7 @@ public:
 			}
  			/* 6) Exportez */
 			else  if (option == 6) {
-
+				book.exportToFile();
 			}
 
         } while (option != 0);
@@ -648,8 +781,9 @@ public:
 
 int main () {
 	AdressBook book;
-	Person test;
-	Adress _test;
+	book.getContactFromFile();
+	// Person test;
+	// Adress _test;
 	Menu menu(book);
 	menu.start();
 

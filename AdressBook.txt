@@ -1,0 +1,10 @@
+	 MY CONTACTS
+
+
+CONTACT 1.
+Name : Michel 
+Phone : 0102030405
+Adress : 20 rue
+	23100 Orleans
+	France
+
