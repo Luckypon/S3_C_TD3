@@ -11,6 +11,8 @@
 
 */
 
+// faire que l'utilisateur doive rentrer 10 chiffre pour phoneNumber
+
 	
 
 #include <iostream>
@@ -52,21 +54,21 @@ class Adress
 
 		void setStreet (string s) {street = s;}
 		void setStreet () {
+			bool test;
 			string _street = "";
 			do{
 				cout << "Street : " << endl;
-				cin >> _street;
+				getline (cin,_street);
 				if(cin.fail() || _street == ""){
-					cout << "The street was incorrect ! " << _street << endl;
-					_street == "";
+					cout << "The street was incorrect ! " << endl;
 					cin.clear();
 					cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 				}else{
 					street = _street;
-					cin.clear();
-					cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+					test = 0;
 				}
-			}while(_street == "");
+			}while(test);
+
 		}
 		
 		void setZipCode (unsigned int z) {zipCode = z;}
@@ -89,40 +91,38 @@ class Adress
 		
 		void setCity (string c) {city = c;}
 		void setCity () {
+			bool test;
 			string _city = "";
 			do{
 				cout << "City : " << endl;
-				cin >> _city;
+				getline (cin,_city);
 				if(cin.fail() || _city == ""){
-					cout << "The city was incorrect ! " << _city << endl;
-					_city == "";
+					cout << "The city was incorrect ! " << endl;
 					cin.clear();
 					cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 				}else{
 					city = _city;
-					cin.clear();
-					cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+					test = 0;
 				}
-			}while(_city == "");
+			}while(test);
 		}
 		
 		void setCountry (string c) {country = c;}
 		void setCountry () {
+			bool test;
 			string _country = "";
 			do{
 				cout << "Country : " << endl;
-				cin >> _country;
+				getline (cin,_country);
 				if(cin.fail() || _country == ""){
-					cout << "The country was incorrect ! " << _country << endl;
-					_country == "";
+					cout << "The country was incorrect ! " << endl;
 					cin.clear();
 					cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 				}else{
 					country = _country;
-					cin.clear();
-					cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+					test = 0;
 				}
-			}while(_country == "");
+			}while(test);
 		}
 
 		void setAdress(unsigned int n, string s, unsigned int z, string ci, string co){
@@ -133,7 +133,7 @@ class Adress
 			setCountry(co);
 		}
 		void setAdress(){ 	
-			cout << "Vous allez rentrer l'adresse" << endl;
+			cout << "You're going to enter the adress" << endl;
 			setNumber();
 			setStreet();
 			setZipCode();
@@ -197,11 +197,7 @@ public:
 		<< adress.getCountry() << endl;
 	}
 
-	Adress getAdress() {
-		return adress;
-	}
-
-
+	
 
 
 	void printAll(){
@@ -218,22 +214,29 @@ public:
 		return phoneNb;
 	}
 
+	Adress getAdress() {
+		return adress;
+	}
+
 	void setName (string n) {name = n;}
 	void setName () {
+		bool test;
+		cin.clear();
+		cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		string _name = "";
 		do{
 			cout << "Name : " << endl;
-			cin >> _name;
+			getline (cin,_name);
 			if(cin.fail() || _name == ""){
-				cout << "The name was incorrect ! " << _name << endl;
+				cout << "The name was incorrect ! " << endl;
 				cin.clear();
 				cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			}else{
 				name = _name;
-				cin.clear();
-				cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				test = 0;
 			}
-		}while(_name == "");
+		}while(test);
+
 	}
 
 	void setPhoneNb (unsigned char nb[]) {
@@ -296,7 +299,7 @@ class AdressBook{
 			adressBook.push_back(p);
  			
  			cout << endl;
-			cout << "Vous venez de rentrer le contact :"  << endl;
+			cout << "You have entered a contact :"  << endl;
 			p.printAll();	
 			cout << "---------------------------------------------"  << endl << endl;
 		}
@@ -626,7 +629,7 @@ class AdressBook{
 					adressBook[i].printAll();
 					cout << endl;
  				}else{
- 					cout << "Pressez un bouton pour voir les autres contacts "  << endl << endl;
+ 					cout << "Push a button to see the other contacts "  << endl << endl;
  					cin >> junk;
  					nbTest = 0;
  					cout << endl;
