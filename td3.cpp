@@ -443,7 +443,7 @@ class AdressBook{
 							p.setAdress(_adress);						
 	 					}
 
-	 					cout << endl << "The contact had bin edited" << endl;
+	 					cout << endl << "The contact had been edited" << endl;
 	 					p.printAll();
 	 				}
 				}
@@ -468,7 +468,7 @@ class AdressBook{
 				cout << "You are going to remove the contact : " << endl;
 				p.printAll();
 				adressBook.erase(adressBook.begin()+position);
-				cout << "This contact had bin removed" << endl << endl;
+				cout << "This contact had been removed" << endl << endl;
 				// cout << "-------------------------------------------------" << endl << endl;
 			}
 			
@@ -500,7 +500,7 @@ class AdressBook{
 
  				}
 				myfile.close();
-				cout << "The contacts had bin export in the file \"AdressBook.txt\". "  << endl << endl;
+				cout << "The contacts had been exported in the file \"AdressBook.txt\". "  << endl << endl;
 
 			}
 			else{

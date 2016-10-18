@@ -1,6 +1,6 @@
 	 MY CONTACTS
 
-2 CONTACTS
+3 CONTACTS
 
 CONTACT 1.
 Name : Hugo 
@@ -15,4 +15,11 @@ Phone : 0564212156
 Adress : 10 boulevard
 	21540 finlande
 	finlande
+
+CONTACT 3.
+Name : Jean Michel 
+Phone : 5454545454
+Adress : 54 gs gs sd s
+	45454 hir$
+	country
 
