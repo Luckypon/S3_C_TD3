@@ -1,18 +1,11 @@
 	 MY CONTACTS
 
-2 CONTACTS
+1 CONTACTS
 
 CONTACT 1.
-Name : Hugo 
-Phone : 0102030405
-Adress : 20 rue
-	23100 Orleans
-	France
-
-CONTACT 2.
-Name : Kirikou 
-Phone : 0564212156
-Adress : 10 boulevard
-	21540 finlande
-	finlande
+Name : Maya l'abeille 
+Phone : 0124520010
+Adress : 10 allee des petits sapins
+	10200 bora bora
+	paradis
 

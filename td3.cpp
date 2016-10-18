@@ -1,14 +1,17 @@
 // Separer les éléments
 // vérifier la sécurité
-// problème avec les espaces ?
+
+// problème avec les espaces (dans edit)
+// zip code à faire
 
 
 /* 
 	verifier si le contact existe deja
-	en regle général, quand on ecrit une btise ca bug, il faut faire des tests
 	dans edit, quand on met une valeur qui n'est pas acceptée par le menu ca revient au menu principal
+	? quand y a pas de fichier AdressBook.txt
 
 */
+
 
 	
 
@@ -52,21 +55,21 @@ class Adress
 
 		void setStreet (string s) {street = s;}
 		void setStreet () {
+			bool test;
 			string _street = "";
 			do{
 				cout << "Street : " << endl;
-				cin >> _street;
+				getline (cin,_street);
 				if(cin.fail() || _street == ""){
-					cout << "The street was incorrect ! " << _street << endl;
-					_street == "";
+					cout << "The street was incorrect ! " << endl;
 					cin.clear();
 					cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 				}else{
 					street = _street;
-					cin.clear();
-					cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+					test = 0;
 				}
-			}while(_street == "");
+			}while(test);
+
 		}
 		
 		void setZipCode (unsigned int z) {zipCode = z;}
@@ -89,40 +92,38 @@ class Adress
 		
 		void setCity (string c) {city = c;}
 		void setCity () {
+			bool test;
 			string _city = "";
 			do{
 				cout << "City : " << endl;
-				cin >> _city;
+				getline (cin,_city);
 				if(cin.fail() || _city == ""){
-					cout << "The city was incorrect ! " << _city << endl;
-					_city == "";
+					cout << "The city was incorrect ! " << endl;
 					cin.clear();
 					cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 				}else{
 					city = _city;
-					cin.clear();
-					cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+					test = 0;
 				}
-			}while(_city == "");
+			}while(test);
 		}
 		
 		void setCountry (string c) {country = c;}
 		void setCountry () {
+			bool test;
 			string _country = "";
 			do{
 				cout << "Country : " << endl;
-				cin >> _country;
+				getline (cin,_country);
 				if(cin.fail() || _country == ""){
-					cout << "The country was incorrect ! " << _country << endl;
-					_country == "";
+					cout << "The country was incorrect ! " << endl;
 					cin.clear();
 					cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 				}else{
 					country = _country;
-					cin.clear();
-					cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+					test = 0;
 				}
-			}while(_country == "");
+			}while(test);
 		}
 
 		void setAdress(unsigned int n, string s, unsigned int z, string ci, string co){
@@ -133,7 +134,7 @@ class Adress
 			setCountry(co);
 		}
 		void setAdress(){ 	
-			cout << "Vous allez rentrer l'adresse" << endl;
+			cout << "You're going to enter the adress" << endl;
 			setNumber();
 			setStreet();
 			setZipCode();
@@ -197,11 +198,7 @@ public:
 		<< adress.getCountry() << endl;
 	}
 
-	Adress getAdress() {
-		return adress;
-	}
-
-
+	
 
 
 	void printAll(){
@@ -218,22 +215,29 @@ public:
 		return phoneNb;
 	}
 
+	Adress getAdress() {
+		return adress;
+	}
+
 	void setName (string n) {name = n;}
 	void setName () {
+		bool test;
+		cin.clear();
+		cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		string _name = "";
 		do{
 			cout << "Name : " << endl;
-			cin >> _name;
+			getline (cin,_name);
 			if(cin.fail() || _name == ""){
-				cout << "The name was incorrect ! " << _name << endl;
+				cout << "The name was incorrect ! " << endl;
 				cin.clear();
 				cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			}else{
 				name = _name;
-				cin.clear();
-				cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				test = 0;
 			}
-		}while(_name == "");
+		}while(test);
+
 	}
 
 	void setPhoneNb (unsigned char nb[]) {
@@ -296,7 +300,7 @@ class AdressBook{
 			adressBook.push_back(p);
  			
  			cout << endl;
-			cout << "Vous venez de rentrer le contact :"  << endl;
+			cout << "You have entered a contact :"  << endl;
 			p.printAll();	
 			cout << "---------------------------------------------"  << endl << endl;
 		}
@@ -341,7 +345,6 @@ class AdressBook{
  			}
  			Person p;
  			cout << "This contact doesn't exist"  << endl;
- 			// cout << "---------------------------------------------"  << endl << endl;
 			return p;
 		}
 
@@ -349,7 +352,7 @@ class AdressBook{
 		int searchContactPlace(Person p){
 			vector<int>::size_type sz = adressBook.size();
  			for (unsigned i=0; i<sz; i++) {
- 				if(p.getName() == adressBook[i].getName()){ //a modifier ?? deux personnes peuvent avoir le même nom..
+ 				if(p.getName() == adressBook[i].getName()){ // a modifier ?? deux personnes peuvent avoir le même nom..
  					return i;	
  				}
  			}
@@ -366,7 +369,7 @@ class AdressBook{
  			return -1;
 		}
 
-		void editContact(){ // a faire
+		void editContact(){ // faire comme dans setName (getLine)
 			cout << "----------------------- EDIT A CONTACT ----------------------"  << endl << endl;
 			
 			string _name;
@@ -390,7 +393,6 @@ class AdressBook{
 	 					cout << "\t2) Phone number"  << endl;
 	 					cout << "\t3) Adress"  << endl;
 
-	 					// cout << "---------------------------------------------"  << endl << endl;
 	 					cout << endl;
 
 
@@ -438,7 +440,7 @@ class AdressBook{
 							p.setAdress(_adress);						
 	 					}
 
-	 					cout << endl << "The contact had bin edited" << endl;
+	 					cout << endl << "The contact had been edited" << endl;
 	 					p.printAll();
 	 				}
 				}
@@ -463,7 +465,7 @@ class AdressBook{
 				cout << "You are going to remove the contact : " << endl;
 				p.printAll();
 				adressBook.erase(adressBook.begin()+position);
-				cout << "This contact had bin removed" << endl << endl;
+				cout << "This contact had been removed" << endl << endl;
 				// cout << "-------------------------------------------------" << endl << endl;
 			}
 			
@@ -495,7 +497,7 @@ class AdressBook{
 
  				}
 				myfile.close();
-				cout << "The contacts had bin export in the file \"AdressBook.txt\". "  << endl << endl;
+				cout << "The contacts had been exported in the file \"AdressBook.txt\". "  << endl << endl;
 
 			}
 			else{
@@ -513,7 +515,7 @@ class AdressBook{
 			    const int ZERO = 48;
 			    const int POINT = 46;
 				char car;
-			    const int TAILLE_TAB = 10;
+			    const int TAILLE_TAB = 30;
 
 			// faire une boucle pour recuperer les plusieurs contacts
 			// on ne peut pas editer un contact qui a ete recuperer comme ça, on met une lettre de trop (C EST BON)
@@ -648,7 +650,7 @@ class AdressBook{
 					adressBook[i].printAll();
 					cout << endl;
  				}else{
- 					cout << "Pressez un bouton pour voir les autres contacts "  << endl << endl;
+ 					cout << "Push a button to see the other contacts "  << endl << endl;
  					cin >> junk;
  					nbTest = 0;
  					cout << endl;
