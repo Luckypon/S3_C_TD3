@@ -4,7 +4,6 @@
 
 
 /* 
-
 	verifier si le contact existe deja
 	en regle général, quand on ecrit une btise ca bug, il faut faire des tests
 	dans edit, quand on met une valeur qui n'est pas acceptée par le menu ca revient au menu principal
@@ -18,7 +17,6 @@
 #include <limits>
 #include <fstream>
 #include <string>
-//#include "adress.h"
 
 
 using namespace std;
