@@ -12,10 +12,8 @@
 
 */
 
-<<<<<<< HEAD
-=======
+
 // faire que l'utilisateur doive rentrer 10 chiffre pour phoneNumber
->>>>>>> d2c5df50fd42c70ad6d68d3c391c642c339048d0
 
 	
 
