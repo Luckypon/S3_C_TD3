@@ -476,7 +476,9 @@ class AdressBook{
 			if (myfile.is_open()){
 				vector<int>::size_type sz = adressBook.size();
 
-				myfile << "\t MY CONTACTS\n\n\n";
+				myfile << "\t MY CONTACTS\n\n";
+
+				myfile  << sz << " CONTACTS\n\n";
 
  				for (unsigned i=0; i<sz; i++) {
  					// myfile << "This is a line.\n";
@@ -505,106 +507,126 @@ class AdressBook{
 
 		void getContactFromFile(){ // à tester
 			
-			// faire une boucle pour recuperer les plusieurs contacts
-			// on ne peut pas editer un contact qui a ete recuperer comme ça, on met une lettre de trop
-    		string line;
-			ifstream myfile ("AdressBook.txt");
-			if (myfile.is_open()){
-				int i = 0;
-				
-			    while ((getline (myfile,line)) && (line != "CONTACT 1.") )
-			    { 
-			    } // go to the first contact name line
-			    
-			    myfile.seekg (6, ios::cur); //go to name
-
-			    char car;
-			    const int TAILLE_TAB = 10;
-			    char tabChar[TAILLE_TAB];
-			    myfile.get(car);
-			    const int LINE_RETURN = 10;
+				const int LINE_RETURN = 10;
 			    const int TWO_POINTS = 58;
 			    const int SPACE = 32;
 			    const int ZERO = 48;
-			    
-			    while ( myfile.get(car) && car != LINE_RETURN) {
-			    	tabChar[i] = car;
-			    	i++;
-			    }
-			    string _name (tabChar, i-3);
- 				
- 				// go to the phone number
- 				i = 0;
- 				while ( myfile.get(car) && car != TWO_POINTS) {
-			    }
- 				myfile.get(car);
- 				unsigned char phoneNumber[10];
+			    const int POINT = 46;
+				char car;
+			    const int TAILLE_TAB = 10;
 
- 				while ( myfile.get(car) && car != LINE_RETURN) {
-			    	phoneNumber[i] = car;
-			    	i++;
-			    }
+			// faire une boucle pour recuperer les plusieurs contacts
+			// on ne peut pas editer un contact qui a ete recuperer comme ça, on met une lettre de trop (C EST BON)
+    		string line;
+			ifstream myfile ("AdressBook.txt");
 
-			    // go to adress (number)
- 				while ( myfile.get(car) && car != TWO_POINTS) {
-			    }
- 				myfile.get(car);
- 				unsigned int nb = 0;
+			if (myfile.is_open()){
+				unsigned int nb = 0;
+				unsigned int nbOfContacts = 0;
+
+				while (myfile.get(car) && !(car >= ZERO && car <= ZERO + 9))
+			    {} // get the number of contacts
+			    nbOfContacts = car - ZERO;
+
  				while ( myfile.get(car) && car != SPACE) {
-			    	nb = nb*10 + (car - ZERO);
+			    	nbOfContacts = nbOfContacts*10 + (car - ZERO);
 			    }
 
-			    // get street
-			    for (i = 0; i < TAILLE_TAB; i++) 
-			    	tabChar[i] = 0;
+  				// go to the first contact name line
 
-			    i = 0;
- 				while ( myfile.get(car) && car != LINE_RETURN) {
-					tabChar[i] = car;
-			    	i++;
-			    }
-			    string _street(tabChar);
+			    unsigned int j;
+			    for (j = 0; j < nbOfContacts; j++) { 
+
+					while ( myfile.get(car) && car != POINT)
+				    { 
+				    } 
+				    
+				    myfile.seekg (7, ios::cur); //go to name
+
+				    
+				    char tabChar[TAILLE_TAB];
+				    myfile.get(car);
+
+				    int i = 0;
+				    while ( myfile.get(car) && car != LINE_RETURN) {
+				    	tabChar[i] = car;
+				    	i++;
+				    }
+				    string _name (tabChar, i-1);
+	 				
+	 				// go to the phone number
+	 				i = 0;
+	 				while ( myfile.get(car) && car != TWO_POINTS) {
+				    }
+	 				myfile.get(car);
+	 				unsigned char phoneNumber[10];
+
+	 				while ( myfile.get(car) && car != LINE_RETURN) {
+				    	phoneNumber[i] = car;
+				    	i++;
+				    }
+
+				    // go to adress (number)
+	 				while ( myfile.get(car) && car != TWO_POINTS) {
+				    }
+	 				myfile.get(car);
+	 				 nb = 0;
+	 				while ( myfile.get(car) && car != SPACE) {
+				    	nb = nb*10 + (car - ZERO);
+				    }
+
+				    // get street
+				    for (i = 0; i < TAILLE_TAB; i++) 
+				    	tabChar[i] = 0;
+
+				    i = 0;
+	 				while ( myfile.get(car) && car != LINE_RETURN) {
+						tabChar[i] = car;
+				    	i++;
+				    }
+				    string _street(tabChar);
 
 
- 				// go to zipCode 
-				myfile.get(car);	//pass TAB
- 				unsigned int zip = 0;
- 				while ( myfile.get(car) && car != SPACE) {
-			    	zip = zip*10 + (car - ZERO);
-			    }
+	 				// go to zipCode 
+					myfile.get(car);	//pass TAB
+	 				unsigned int zip = 0;
+	 				while ( myfile.get(car) && car != SPACE) {
+				    	zip = zip*10 + (car - ZERO);
+				    }
 
 
-			    // get city
-			    for (i = 0; i < TAILLE_TAB; i++) 
-			    	tabChar[i] = 0;
+				    // get city
+				    for (i = 0; i < TAILLE_TAB; i++) 
+				    	tabChar[i] = 0;
 
-			    i = 0;
- 				while ( myfile.get(car) && car != LINE_RETURN) {
-					tabChar[i] = car;
-			    	i++;
-			    }
-			    string _city(tabChar);
-
-
-			    // get country
-			    for (i = 0; i < TAILLE_TAB; i++) 
-			    	tabChar[i] = 0;
-
-			    i = 0;
-				myfile.get(car);	//pass TAB
- 				while ( myfile.get(car) && car != LINE_RETURN) {
-					tabChar[i] = car;
-			    	i++;
-			    }
-			    string _country(tabChar);
+				    i = 0;
+	 				while ( myfile.get(car) && car != LINE_RETURN) {
+						tabChar[i] = car;
+				    	i++;
+				    }
+				    string _city(tabChar);
 
 
+				    // get country
+				    for (i = 0; i < TAILLE_TAB; i++) 
+				    	tabChar[i] = 0;
 
-				Person p;
-				Adress a;
-			 	a.setAdress(nb, _street, zip, _city, _country);
-				p.setAll(_name, phoneNumber, a);
-				addContact(p);
+				    i = 0;
+					myfile.get(car);	//pass TAB
+	 				while ( myfile.get(car) && car != LINE_RETURN) {
+						tabChar[i] = car;
+				    	i++;
+				    }
+				    string _country(tabChar);
+
+
+
+					Person p;
+					Adress a;
+				 	a.setAdress(nb, _street, zip, _city, _country);
+					p.setAll(_name, phoneNumber, a);
+					addContact(p);
+				}
 
 				myfile.close();
 				  // cout << "size is: " << (begin) << (end-begin) << " bytes.\n";

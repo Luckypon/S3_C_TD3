@@ -1,10 +1,18 @@
 	 MY CONTACTS
 
+2 CONTACTS
 
 CONTACT 1.
-Name : Michel 
+Name : Hugo 
 Phone : 0102030405
 Adress : 20 rue
 	23100 Orleans
 	France
+
+CONTACT 2.
+Name : Kirikou 
+Phone : 0564212156
+Adress : 10 boulevard
+	21540 finlande
+	finlande
 
