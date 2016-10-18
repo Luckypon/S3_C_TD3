@@ -1,6 +1,10 @@
 	 MY CONTACTS
 
+<<<<<<< HEAD
 1 CONTACTS
+=======
+3 CONTACTS
+>>>>>>> d2c5df50fd42c70ad6d68d3c391c642c339048d0
 
 CONTACT 1.
 Name : Maya l'abeille 
@@ -8,4 +12,11 @@ Phone : 0124520010
 Adress : 10 allee des petits sapins
 	10200 bora bora
 	paradis
+
+CONTACT 3.
+Name : Jean Michel 
+Phone : 5454545454
+Adress : 54 gs gs sd s
+	45454 hir$
+	country
 
