@@ -13,12 +13,27 @@
 			cout << "----------------------- NEW CONTACT ----------------------"  << endl << endl;
 			p.addInfos();
 
+			if(searchNamesake(p.getName()) == 1){
+				cout << endl << "Someone already have the same name, so '2' will be added at the end of his name:"  << endl;
+				p.setName(p.getName() + " 2");
+			}
+
 			adressBook.push_back(p);
  			
  			cout << endl;
 			cout << "You have entered a contact :"  << endl;
 			p.printAll();	
 			cout << "---------------------------------------------"  << endl << endl;
+		}
+
+		int AdressBook::searchNamesake(string _name){
+			vector<int>::size_type sz = adressBook.size();
+ 			for (unsigned i=0; i<sz; i++) {
+ 				if(_name == adressBook[i].getName()){
+ 					return 1;	
+ 				}
+ 			}
+			return 0;
 		}
 
 
@@ -58,8 +73,6 @@
  					return adressBook[i];	
  				}
  			}
- 			cin.clear();
-			cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
  			Person p;
  			cout << "This contact doesn't exist"  << endl;
@@ -93,8 +106,6 @@
 			string _name;
 			cout << "Contact to edit :"  << endl;
 			getline (cin,_name);
-			cin.clear();
-			cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
  			cout << endl;
  			int posContactToEdit = searchContactPlace(_name);
  			if (posContactToEdit < 0) {
@@ -103,10 +114,6 @@
 	 			Person & p =  adressBook[posContactToEdit];
 
  				if(_name == adressBook[posContactToEdit].getName()){
-
- 					
-
-
 
 			        int option = -1;
 			        
@@ -133,7 +140,12 @@
 
 							cout << "New name : " << endl;
 							getline (cin,_name);
-							p.setName(_name);
+							if(searchNamesake(_name) == 1){
+								cout << endl << "Someone already have the same name, please choose another name"  << endl;
+								option = -1;
+							}else{
+								p.setName(_name);
+							}
 						}
 						else if (option == 2) {
 							cout << "New phone number : " << endl;
@@ -158,16 +170,12 @@
 	 					}
 	 					else{
 	 						option = -1;
-	 						cin.clear();
-							cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	 					}
 			        }while (option < 0);
 				        
 
  					cout << endl << "The contact had been edited" << endl;
  					p.printAll();
- 					cin.clear();
-					cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
  				}
 
 			}
@@ -179,9 +187,7 @@
 			
 			string _name;
 			cout << "Contact to remove :"  << endl;
-			cin >> _name;
-			cin.clear();
-			cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			getline (cin,_name);
  			cout << endl;
  			Person p = searchContact(_name);
 

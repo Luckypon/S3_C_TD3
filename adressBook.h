@@ -4,6 +4,7 @@
 #include "adress.h"
 #include "person.h"
 
+
 #include <iostream>
 #include <vector>
 #include <limits>
@@ -21,6 +22,9 @@ class AdressBook{
 
 		void addContact(Person p);
 		void addContact();
+
+		int searchNamesake(string _name);
+
 		Person searchContact(string _name);
 
 

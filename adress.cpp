@@ -31,12 +31,8 @@ void Adress::setStreet () {
 		getline (cin,_street);
 		if(cin.fail() || _street == ""){
 			cout << "The street was incorrect ! " << endl;
-			cin.clear();
-			cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		}else{
 			street = _street;
-			cin.clear();
-			cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			test = 0;
 		}
 	}while(test);
@@ -70,12 +66,8 @@ void Adress::setCity () {
 		getline (cin,_city);
 		if(cin.fail() || _city == ""){
 			cout << "The city was incorrect ! " << endl;
-			cin.clear();
-			cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		}else{
 			city = _city;
-			cin.clear();
-			cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			test = 0;
 		}
 	}while(test);
@@ -90,12 +82,8 @@ void Adress::setCountry () {
 		getline (cin,_country);
 		if(cin.fail() || _country == ""){
 			cout << "The country was incorrect ! " << endl;
-			cin.clear();
-			cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		}else{
 			country = _country;
-			cin.clear();
-			cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			test = 0;
 		}
 	}while(test);

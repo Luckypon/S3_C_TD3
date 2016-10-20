@@ -1,13 +1,4 @@
 
-	// A REGLER
-
-	// dans import file, ça prend pas le chiffre après le nom..
-	// tester le import export
-	// quand y a pas de fichier AdressBook.txt ?
-	// quand l'utilisateur tape au clavier ça le force parfois à sauter une ligne, mais au moins ça plante pas (ça te derange ? si oui faut enlever des cin.ignore etc)
-
-	
-
 #include "adress.h"
 #include "person.h"
 #include "adressBook.h"

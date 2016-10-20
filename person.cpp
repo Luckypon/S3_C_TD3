@@ -49,12 +49,8 @@
 			getline (cin,_name);
 			if(cin.fail() || _name == ""){
 				cout << "The name was incorrect ! " << endl;
-				cin.clear();
-				cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			}else{
 				name = _name;
-				cin.clear();
-				cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 				test = 0;
 			}
 		}while(test);
